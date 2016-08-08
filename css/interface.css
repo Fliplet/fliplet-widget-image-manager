@@ -135,11 +135,6 @@ header a {
   color: #00abd2;
 }
 
-.image-library {
-  margin-left: -10px;
-  margin-right: -10px;
-}
-
 .image-library .col-xs-4 {
   padding-left: 10px;
   padding-right: 10px;
@@ -247,7 +242,7 @@ header a {
   margin: 0;
 }
 
-@media only screen and (min-width: 640px) {
+@media only screen and (min-width: 488px) {
   header {
     font-size: 1.0em;
   }
