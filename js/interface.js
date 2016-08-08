@@ -9,7 +9,7 @@ function getImagesContainer() {
   $imagesContainer.html('');
 
   Fliplet.Media.Folders.get({
-
+    type: 'image'
   }).then(function (response) {
     response.files.forEach(addFile);
   });
