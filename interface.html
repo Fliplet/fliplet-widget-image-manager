@@ -1,5 +1,5 @@
 <template id="template-file">
-  <div class="col-xs-4 file" data-id="\{{id}}">
+  <div class="col-xs-4 image" data-id="\{{id}}">
     <div class="image-holder" style="background-image: url('\{{url}}');">
       <div class="image-overlay">
         <div class="btn btn-primary" data-select-file>Use</div>
@@ -10,9 +10,10 @@
           <strong>\{{name}}</strong>
         </p>
         <p>
-          Dimension: 1280x720
-          <br> Size: 640KB
-          <br> Uploaded by Hugo on 04/08/16
+          Dimension: \{{width}}x\{{height}}
+          <br> Size: \{{size}}
+          <br> Uploaded by \{{flipletUser}}
+          <br> \{{uploadDate}}
         </p>
       </div>
     </div>
@@ -33,13 +34,13 @@
     <p>Configure your image</p>
     <a href="#">Need help?</a>
   </header>
-  <div id="image-drop-zone">
+  <form id="image-drop-zone" data-upload-file>
     <input type="file" name="files[]" id="image_file" multiple />
     <label for="image_file">
       <p>Drag &amp; drop your images here or</p>
-      <div class="btn btn-primary">Click to upload</div>
+      <button class="btn btn-primary">Click to upload</button>
     </label>
-  </div>
+  </form>
   <div class="form-group search-media">
     <span class="fa fa-search"></span>
     <input type="text" class="form-control" id="search-media" name="search-media" placeholder="Search my images and Fliplet Library">

@@ -1,36 +1,23 @@
-var $folderContents = $('#folder-contents');
+var $imagesContainer = $('.image-library');
 var templates = {
-  file: template('file'),
-  folder: template('folder')
+  file: template('file')
 };
-var currentFolderId;
-var currentFolders;
 var currentFiles;
 
-function getFolderContents(folderId) {
-  currentFolderId = folderId;
-  currentFolders = [];
+function getImagesContainer() {
   currentFiles = [];
-  $folderContents.html('');
-
-  $('[data-upload-file]').toggle(!!folderId);
+  $imagesContainer.html('');
 
   Fliplet.Media.Folders.get({
-    folderId: currentFolderId
+
   }).then(function (response) {
-    response.folders.forEach(addFolder);
     response.files.forEach(addFile);
   });
 }
 
-function addFolder(folder) {
-  currentFolders.push(folder);
-  $folderContents.append(templates.folder(folder));
-}
-
 function addFile(file) {
   currentFiles.push(file);
-  $folderContents.append(templates.file(file));
+  $imagesContainer.append(templates.file(file));
 }
 
 function template(name) {
@@ -39,50 +26,14 @@ function template(name) {
 
 // events
 $('#app')
-  .on('click', '[data-browse-folder]', function (event) {
-    event.preventDefault();
-    getFolderContents($(this).closest('li').data('id'));
-  })
-  .on('click', '[data-delete-folder]', function (event) {
-    event.preventDefault();
-    var $item = $(this).closest('li');
-
-    Fliplet.Media.Folders.delete($item.data('id')).then(function () {
-      $item.remove();
-    });
-  })
   .on('click', '[data-select-file]', function (event) {
     event.preventDefault();
-    var id = $(this).closest('li').data('id');
+    var id = $(this).parents('.image').data('id');
     currentFiles.forEach(function (file) {
       if (file.id === id) {
         Fliplet.Widget.save(file).then(Fliplet.Widget.complete);
       }
     })
-  })
-  .on('click', '[data-delete-file]', function (event) {
-    event.preventDefault();
-    var $item = $(this).closest('li');
-
-    Fliplet.Media.Files.delete({
-      fileId: $item.data('id'),
-      folderId: $item.data('folder')
-    }).then(function () {
-      $item.remove();
-    });
-  })
-  .on('click', '[data-create-folder]', function (event) {
-    event.preventDefault();
-    var folderName = prompt('Type folder name');
-
-    if (!folderName) {
-      return;
-    }
-
-    Fliplet.Media.Folders.create({
-      name: folderName,
-      parentId: currentFolderId || undefined
-    }).then(addFolder);
   })
   .on('submit', '[data-upload-file]', function (event) {
     var $form = $(this);
@@ -96,7 +47,6 @@ $('#app')
     formData.append('file', file);
 
     Fliplet.Media.Files.upload({
-      folderId: currentFolderId,
       name: file.name,
       data: formData
     }).then(function (files) {
@@ -108,4 +58,4 @@ $('#app')
   });
 
 // init
-getFolderContents();
+getImagesContainer();
