@@ -26,6 +26,14 @@ function template(name) {
 
 // events
 $('#app')
+  .on('change', '#image_file', function() {
+    var $input = $('#image-drop-zone').find('input');
+    var fileName = $input[0].files[0].name;
+
+    $('.upload-controls #file-name').html(fileName);
+    $('#choose-image').removeClass('show');
+    $('.upload-controls').addClass('show');
+  })
   .on('click', '[data-select-file]', function (event) {
     event.preventDefault();
     var id = $(this).parents('.image').data('id');
@@ -36,6 +44,9 @@ $('#app')
     })
   })
   .on('submit', '[data-upload-file]', function (event) {
+    $('#choose-image').addClass('show');
+    $('.upload-controls').removeClass('show');
+
     var $form = $(this);
     event.preventDefault();
 
