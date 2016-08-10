@@ -136,6 +136,13 @@ header a {
     font-size: 0.8em;
     margin: 0.8em 0 0;
 }
+.image-library .nofiles-msg {
+    text-align: center;
+    width: 100%;
+}
+.image-library .nofiles-msg label {
+    cursor: pointer;
+}
 .image-library {
     display: flex;
     justify-content: flex-start;

@@ -1,6 +1,7 @@
 var $imagesContainer = $('.image-library');
 var templates = {
-  file: template('file')
+  file: template('file'),
+  noFiles: template('nofiles')
 };
 var currentFiles;
 
@@ -11,13 +12,25 @@ function getImagesContainer() {
   Fliplet.Media.Folders.get({
     type: 'image'
   }).then(function (response) {
-    response.files.forEach(addFile);
+    if ( response.files.length > 0 ) {
+      response.files.forEach(addFile);
+    } else {
+      noFiles();
+    }
   });
 }
 
 function addFile(file) {
+  // Removes the "No image" message
+  if ($('.image-library .nofiles-msg').length) {
+    $('.image-library .nofiles-msg').remove();
+  }
   currentFiles.push(file);
-  $imagesContainer.append(templates.file(file));
+  $imagesContainer.prepend(templates.file(file));
+}
+
+function noFiles() {
+  $imagesContainer.prepend(templates.noFiles());
 }
 
 function template(name) {
