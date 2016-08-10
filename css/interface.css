@@ -46,9 +46,6 @@ header {
     margin-bottom: 3rem;
     padding-bottom: 1.5em;
 }
-header.titles {
-    font-weight: bold;
-}
 header p {
     flex: 1;
     margin: 0 1.4rem 0 0;
@@ -67,19 +64,20 @@ header a {
     font-weight: normal;
 }
 #choose-image,
-.upload-controls {
+.uploaded-control,
+.uploading-control {
     display: none;
 }
 #choose-image.show {
     display: inline-block !important;
 }
-.upload-controls span {
-    display: block;
-    margin-bottom: 10px;
+.uploaded-control p,
+.uploading-control p {
+    line-height: 44px;
+    margin-bottom: 2px;
 }
-.upload-controls label {
-    display: block;
-    margin-top: 10px;
+.uploading-control p {
+    color: #999999;
 }
 #image-drop-zone input {
     width: 0.1px;
@@ -123,9 +121,30 @@ header a {
     font-size: 22px;
     color: #00abd2;
 }
+.titles {
+    font-size: 0.8em;
+    border-bottom: 1px solid #E3E9EB;
+    margin-bottom: 3rem;
+    padding-bottom: 1.5em;
+}
+.titles p {
+    font-weight: bold;
+    margin: 0;
+}
+.titles p + p {
+    font-weight: normal;
+    font-size: 0.8em;
+    margin: 0.8em 0 0;
+}
+.image-library {
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: wrap;
+}
 .image-library .col-xs-4 {
     padding-left: 10px;
     padding-right: 10px;
+    margin-bottom: 10px;
 }
 .image-holder {
     position: relative;
@@ -194,6 +213,7 @@ header a {
     -webkit-transition: all 0.225s ease-in-out;
     transition: all 0.25s ease-in-out;
     z-index: 10;
+    word-break: break-word;
 }
 .image-info,
 .image-title {
@@ -212,11 +232,13 @@ header a {
 }
 .image-title {
     padding: 9px 11px;
+    word-break: break-word;
 }
 .image-title p {
     margin: 0;
 }
 @media only screen and (min-width: 488px) {
+    .titles,
     header {
         font-size: 1.0em;
     }

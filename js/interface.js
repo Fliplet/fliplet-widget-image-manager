@@ -28,6 +28,10 @@ function template(name) {
 $('#app')
   .on('change', '#image_file', function() {
     var $form = $('#image-drop-zone');
+
+    $('#choose-image').removeClass('show');
+    $('.uploading-control').addClass('show');
+
     $form.submit();
   })
   .on('click', '[data-select-file]', function (event) {
@@ -54,6 +58,14 @@ $('#app')
       name: file.name,
       data: formData
     }).then(function (files) {
+
+      $('.uploading-control').removeClass('show');
+      $('.uploaded-control').addClass('show');
+      setTimeout(function(){
+        $('.uploaded-control').removeClass('show');
+        $('#choose-image').addClass('show');
+      }, 1000);
+
       $input.val('');
       files.forEach(function (file) {
         addFile(file);
