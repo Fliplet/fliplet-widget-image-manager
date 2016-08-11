@@ -5,6 +5,8 @@ var templates = {
 };
 var currentFiles;
 
+Fliplet.Widget.toggleSaveButton(false);
+
 function getImagesContainer() {
   currentFiles = [];
   $imagesContainer.html('');
