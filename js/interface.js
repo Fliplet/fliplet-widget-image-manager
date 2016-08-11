@@ -5,7 +5,7 @@ var templates = {
 };
 var currentFiles;
 
-Fliplet.Widget.toggleSaveButton(false);
+Fliplet.Widget.emit('linkTypeSet', { set: false });
 
 function getImagesContainer() {
   currentFiles = [];
