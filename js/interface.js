@@ -5,7 +5,8 @@ var templates = {
 };
 var currentFiles;
 
-Fliplet.Widget.emit('linkTypeSet', { set: false });
+// Removed until fixed
+//Fliplet.Widget.emit('linkTypeSet', { set: false });
 
 function getImagesContainer() {
   currentFiles = [];
