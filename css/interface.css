@@ -39,6 +39,9 @@
 a {
     color: #00abd2;
 }
+#app {
+    padding: 15px;
+}
 header {
     display: flex;
     font-size: 0.8em;
@@ -136,17 +139,19 @@ header a {
     font-size: 0.8em;
     margin: 0.8em 0 0;
 }
+.image-library {
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: wrap;
+    margin-left: -10px;
+    margin-right: -10px;
+}
 .image-library .nofiles-msg {
     text-align: center;
     width: 100%;
 }
 .image-library .nofiles-msg label {
     cursor: pointer;
-}
-.image-library {
-    display: flex;
-    justify-content: flex-start;
-    flex-flow: wrap;
 }
 .image-library .col-xs-4 {
     padding-left: 10px;
