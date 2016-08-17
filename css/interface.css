@@ -39,9 +39,6 @@
 a {
     color: #00abd2;
 }
-#app {
-    padding: 15px;
-}
 header {
     display: flex;
     font-size: 0.8em;
