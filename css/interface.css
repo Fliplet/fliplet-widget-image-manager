@@ -39,9 +39,7 @@
 a {
     color: #00abd2;
 }
-#app {
-    padding: 15px;
-}
+#app {}
 header {
     display: flex;
     font-size: 0.8em;
@@ -143,8 +141,6 @@ header a {
     display: flex;
     justify-content: flex-start;
     flex-flow: wrap;
-    margin-left: -10px;
-    margin-right: -10px;
 }
 .image-library .nofiles-msg {
     text-align: center;

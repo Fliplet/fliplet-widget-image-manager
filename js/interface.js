@@ -5,9 +5,6 @@ var templates = {
 };
 var currentFiles;
 
-// Removed until fixed
-//Fliplet.Widget.emit('linkTypeSet', { set: false });
-
 function getImagesContainer() {
   currentFiles = [];
   $imagesContainer.html('');
@@ -55,7 +52,9 @@ $('#app')
     var id = $(this).parents('.image').data('id');
     currentFiles.forEach(function (file) {
       if (file.id === id) {
-        Fliplet.Widget.save(file).then(Fliplet.Widget.complete);
+        Fliplet.Widget.save(file).then(function () {
+          Fliplet.Widget.complete();
+        });
       }
     })
   })
@@ -85,6 +84,9 @@ $('#app')
       $input.val('');
       files.forEach(function (file) {
         addFile(file);
+        Fliplet.Widget.save(file).then(function () {
+          Fliplet.Widget.complete();
+        });
       });
     })
   })
