@@ -10,8 +10,8 @@ function getImagesContainer() {
   $imagesContainer.html('');
 
   Promise.all([
-    Fliplet.Media.Folders.get({ type: 'image' }),
-    Fliplet.Media.Folders.get({ type: 'image', organizationId: Fliplet.Env.get('organizationId') })
+    Fliplet.Media.Folders.get({ type: 'images' }),
+    Fliplet.Media.Folders.get({ type: 'images', organizationId: Fliplet.Env.get('organizationId') })
   ])
     .then(function (responses) {
       var files = _.unionBy(responses[0].files, responses[1].files, 'id');
