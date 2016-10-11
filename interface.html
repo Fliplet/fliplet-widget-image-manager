@@ -1,5 +1,5 @@
 <template id="template-file">
-  <div class="col-xs-4 image" data-type="file" data-id="\{{id}}">
+  <div class="col-xs-4 image" data-file-id="\{{id}}">
     <div class="image-holder" style="background-image: url('\{{thumbnail}}');">
       <div class="image-overlay">
         <div class="btn btn-primary" data-select-file>Use</div>
@@ -23,7 +23,7 @@
 </template>
 
 <template id="template-folder">
-  <div class="col-xs-4 item-holder folder" data-type="folder" data-id="\{{id}}">
+  <div class="col-xs-4 item-holder folder" data-folder-id="\{{id}}" data-parent-id="\{{parentId}}"}>
     <div class="image-holder">
       <div class="image-overlay">
         <i class="fa fa-folder" aria-hidden="true"></i>
@@ -46,7 +46,7 @@
 </template>
 
 <template id="template-app">
-  <div class="col-xs-4 item-holder folder" data-type="app" data-id="\{{id}}">
+  <div class="col-xs-4 item-holder folder" data-app-id="\{{id}}">
     <div class="image-holder">
       <div class="image-overlay">
         <i class="fa fa-folder" aria-hidden="true"></i>

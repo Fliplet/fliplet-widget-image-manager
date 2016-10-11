@@ -26,16 +26,9 @@ function getImagesContainer() {
 }
 
 function addFile(file) {
-  // Removes the "No image" message
-  if ($('.image-library .nofiles-msg').length) {
-    $('.image-library .nofiles-msg').remove();
-  }
-  currentFiles.push(file);
-  $imagesContainer.prepend(templates.file(file));
 }
 
 function noFiles() {
-  $imagesContainer.prepend(templates.noFiles());
 }
 
 function template(name) {
@@ -100,4 +93,3 @@ $('#app')
   });
 
 // init
-getImagesContainer();
