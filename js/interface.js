@@ -17,7 +17,7 @@ function getImagesContainer() {
     Fliplet.Media.Folders.get({ type: 'image', organizationId: Fliplet.Env.get('organizationId') })
   ])
     .then(function (responses) {
-      var files = responses[0].files.concat(responses[1].files);
+      var files = _.unionBy(responses[0].files, responses[1].files, 'id');
       if (files.length) {
         files.forEach(addFile);
       } else {
