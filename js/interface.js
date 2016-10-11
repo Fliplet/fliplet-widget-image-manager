@@ -12,15 +12,18 @@ function getImagesContainer() {
   currentFiles = [];
   $imagesContainer.html('');
 
-  Fliplet.Media.Folders.get({
-    type: 'image'
-  }).then(function (response) {
-    if ( response.files.length > 0 ) {
-      response.files.forEach(addFile);
-    } else {
-      noFiles();
-    }
-  });
+  Promise.all([
+    Fliplet.Media.Folders.get({ type: 'image' }),
+    Fliplet.Media.Folders.get({ type: 'image', organizationId: 609 }),
+  ])
+    .then(function (responses) {
+      var files = responses[0].files.concat(responses[1].files);
+      if (files.length) {
+        files.forEach(addFile);
+      } else {
+        noFiles();
+      }
+    });
 }
 
 function addFile(file) {
