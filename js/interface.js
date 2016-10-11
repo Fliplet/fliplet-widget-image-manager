@@ -14,7 +14,7 @@ function getImagesContainer() {
 
   Promise.all([
     Fliplet.Media.Folders.get({ type: 'image' }),
-    Fliplet.Media.Folders.get({ type: 'image', organizationId: 609 }),
+    Fliplet.Media.Folders.get({ type: 'image', organizationId: Fliplet.Env.get('organizationId') })
   ])
     .then(function (responses) {
       var files = responses[0].files.concat(responses[1].files);
