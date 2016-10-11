@@ -9,15 +9,18 @@ function getImagesContainer() {
   currentFiles = [];
   $imagesContainer.html('');
 
-  Fliplet.Media.Folders.get({
-    type: 'image'
-  }).then(function (response) {
-    if ( response.files.length > 0 ) {
-      response.files.forEach(addFile);
-    } else {
-      noFiles();
-    }
-  });
+  Promise.all([
+    Fliplet.Media.Folders.get({ type: 'image' }),
+    Fliplet.Media.Folders.get({ type: 'image', organizationId: Fliplet.Env.get('organizationId') })
+  ])
+    .then(function (responses) {
+      var files = _.unionBy(responses[0].files, responses[1].files, 'id');
+      if (files.length) {
+        files.forEach(addFile);
+      } else {
+        noFiles();
+      }
+    });
 }
 
 function addFile(file) {
