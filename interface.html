@@ -22,6 +22,52 @@
   </div>
 </template>
 
+<template id="template-folder">
+  <div class="col-xs-4 item-holder folder" data-type="folder" data-id="\{{id}}">
+    <div class="image-holder">
+      <div class="image-overlay">
+        <i class="fa fa-folder" aria-hidden="true"></i>
+      </div>
+      <div class="image-info">
+        <p>
+          <strong>\{{name}}</strong>
+        </p>
+        <p>
+          Double click to open the folder
+        </p>
+      </div>
+    </div>
+    <div class="image-title">
+      <p>
+        <strong>\{{name}}</strong>
+      </p>
+    </div>
+  </div>
+</template>
+
+<template id="template-app">
+  <div class="col-xs-4 item-holder folder" data-type="app" data-id="\{{id}}">
+    <div class="image-holder">
+      <div class="image-overlay">
+        <i class="fa fa-folder" aria-hidden="true"></i>
+      </div>
+      <div class="image-info">
+        <p>
+          <strong>\{{name}}</strong>
+        </p>
+        <p>
+          Double click to open the folder
+        </p>
+      </div>
+    </div>
+    <div class="image-title">
+      <p>
+        <strong>\{{name}}</strong>
+      </p>
+    </div>
+  </div>
+</template>
+
 <template id="template-nofiles">
   <div class="nofiles-msg">
     <p>You haven't uploaded any image yet.<br>Click <label class="btn-link" for="image_file">Upload an image</label> to get started.</p>

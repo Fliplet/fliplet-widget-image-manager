@@ -1,6 +1,8 @@
 var $imagesContainer = $('.image-library');
 var templates = {
   file: template('file'),
+  folder: template('folder'),
+  app: template('app'),
   noFiles: template('nofiles')
 };
 var currentFiles;
