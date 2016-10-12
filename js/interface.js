@@ -162,8 +162,8 @@ function openFolder(folderId) {
       folders = values[0].folders;
 
       // Render folders and files
-      values[0].folders.forEach(addFolder);
-      values[1].files.forEach(addFile);
+      _.sortBy(values[0].folders, ['name']).forEach(addFolder);
+      _.sortBy(values[1].files, ['name']).forEach(addFile);
     });
 }
 
@@ -176,8 +176,8 @@ function openApp(appId) {
       $imagesContainer.html('');
 
       // Render folders and files
-      values[0].folders.forEach(addFolder);
-      values[1].files.forEach(addFile);
+      _.sortBy(values[0].folders, ['name']).forEach(addFolder);
+      _.sortBy(values[1].files, ['name']).forEach(addFile);
     });
 }
 
@@ -190,8 +190,8 @@ function openOrganization(organizationId) {
       $imagesContainer.html('');
 
       // Render folders and files
-      values[0].folders.forEach(addFolder);
-      values[1].files.forEach(addFile);
+      _.sortBy(values[0].folders, ['name']).folders.forEach(addFolder);
+      _.sortBy(values[1].files, ['name']).forEach(addFile);
     });
 }
 
@@ -254,10 +254,10 @@ $('.back-btn').click(function () {
   var id = $el.data('file-id');
 
   if (upTo.length === 1) {
-    upTo[0].back();
+    return upTo[0].back();
   }
 
-  upTo.pop().back();
+  return upTo.pop().back();
 });
 
 // init
