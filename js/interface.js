@@ -62,7 +62,7 @@ $('#app')
   })
   .on('click', '[data-select-file]', function (event) {
     event.preventDefault();
-    var id = $(this).parents('.image').data('id');
+    var id = $(this).parents('.image').data('file-id');
     currentFiles.forEach(function (file) {
       if (file.id === id) {
         Fliplet.Widget.save(file).then(function () {
