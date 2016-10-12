@@ -71,7 +71,7 @@ $('#app')
       }
     })
   })
-  .on('submit', '[data-upload-file]', function (event) {
+  .on('submit', '[data-upload-file]', function uploadImage(event) {
     var $form = $(this);
     event.preventDefault();
 
@@ -82,25 +82,16 @@ $('#app')
     formData.append('name', file.name);
     formData.append('file', file);
 
-
-    if (currentAppId) {
-      console.log('APP >', currentAppId);
-    }
-
-    if (!currentAppId && upTo.length > 1) {
-      console.log('Folder >', upTo[upTo.length - 1]);
-    }
-
-    if (!currentAppId && upTo.length > 1) {
-      console.log('Folder >', upTo[upTo.length - 1]);
-    }
-
-    Fliplet.Media.Files.upload({
-      appId: Fliplet.Env.get('appId'),
+    var options = {
       name: file.name,
       data: formData
-    }).then(function (files) {
+    };
 
+    if (currentAppId) options.appId = currentAppId;
+    if (currentOrganizationId) options.organizationId = currentOrganizationId;
+    if (currentFolderId) options.folderId = currentFolderId;
+
+    Fliplet.Media.Files.upload(options).then(function (files) {
       $('.uploading-control').removeClass('show');
       $('.uploaded-control').addClass('show');
       setTimeout(function(){
@@ -125,6 +116,7 @@ $('#app')
 var upTo = [{ back: openRoot}];
 var currentAppId,
   currentOrganizationId,
+  currentFolderId,
   folders,
   apps,
   organizations;
@@ -145,14 +137,10 @@ function openRoot() {
 
   var organizationId = Fliplet.Env.get('organizationId');
   return Promise.all([
-      //Fliplet.Media.Folders.get({ type: 'folders', organizationId: organizationId }),
       Fliplet.Organizations.get(),
-      getApps(),
-      //Fliplet.Media.Folders.get({ type: 'images' }),
-      //Fliplet.Media.Folders.get({ type: 'images', organizationId: organizationId })
+      getApps()
     ])
     .then(function renderRoot(values) {
-      // TODO: add no files message if no files
       organizations = values[0];
       apps = values[1];
 
@@ -198,7 +186,7 @@ function openOrganization(organizationId) {
     Fliplet.Media.Folders.get({ type: 'folders', organizationId: organizationId }),
     Fliplet.Media.Folders.get({ type: 'images', organizationId: organizationId })
   ])
-    .then(function renderApp(values) {
+    .then(function renderOrganization(values) {
       $imagesContainer.html('');
 
       // Render folders and files
@@ -227,12 +215,16 @@ $('.image-library')
       };
       upTo.push(backItem);
     } else if (parentId !== '') {
-      backItem = _.find(folders, ['id', folderId])
+      backItem = _.find(folders, ['id', folderId]);
       backItem.back = function () {
         openFolder(backItem.id);
       };
       upTo.push(backItem);
     }
+
+    currentFolderId = folderId;
+    currentAppId = undefined;
+    currentOrganizationId = undefined;
 
     openFolder(folderId);
   })
@@ -245,6 +237,7 @@ $('.image-library')
     var id = $el.data('app-id');
     currentAppId = id;
     currentOrganizationId = undefined;
+    currentFolderId = undefined;
     openApp(id);
   })
   .on('dblclick', '[data-organization-id]', function () {
@@ -252,6 +245,7 @@ $('.image-library')
     var id = $el.data('organization-id');
     currentOrganizationId = id;
     currentAppId = undefined;
+    currentFolderId = undefined;
     openOrganization(id);
   });
 
