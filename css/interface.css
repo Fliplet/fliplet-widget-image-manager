@@ -108,6 +108,57 @@ header a {
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(0, 171, 210, .6);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(0, 171, 210, .6);
 }
+.select-proxy-display {
+    width: 70%;
+    height: 44px;
+    margin: 0 auto;
+    padding: 0 44px 0 15px;
+    background: #fff;
+    border: 1px solid #e4e9eb;
+    border-radius: 6px;
+    cursor: pointer;
+    outline: 0;
+    font-weight: 400;
+    line-height: 44px;
+    position: relative;
+    color: #333;
+    float: right;
+}
+.select-proxy-display span.select-value-proxy {
+    width: calc(100% - 60px);
+    position: absolute;
+    left: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+.select-proxy-display .icon {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    top: -1px;
+    right: -1px;
+    background-color: #00abd2;
+    text-align: center;
+    line-height: 44px;
+    font-size: 18px;
+    color: #FFF;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-left: 1px solid #e4e9eb;
+}
+.hidden-select {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 44px;
+    cursor: pointer;
+    opacity: 0;
+}
 .search-media {
     position: relative;
     margin-top: 30px;
@@ -136,6 +187,42 @@ header a {
     font-weight: normal;
     font-size: 0.8em;
     margin: 0.8em 0 0;
+}
+.gallery-tool {
+    font-size: 1em;
+    border-bottom: 1px solid #E3E9EB;
+    margin-bottom: 1rem;
+    padding-bottom: 1.5em;
+    height: 66px;
+    line-height: 44px;
+}
+.back-btn {
+    padding: 0 14px 0 16px;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+}
+.back-btn:hover {
+    text-decoration: underline;
+}
+.back-btn:before {
+    content: "\f148";
+    font: normal normal normal 16px FontAwesome;
+    position: absolute;
+    left: 0;
+    width: 10px;
+    height: 44px;
+    line-height: 44px;
+}
+.breadcrumbs-select {
+    width: 60%;
+    float: right;
+    text-align: right;
+}
+.breadcrumbs-select > div.helper {
+    line-height: 44px;
+    float: right;
+    margin-right: 10px;
 }
 .image-library {
     display: flex;
@@ -170,7 +257,6 @@ header a {
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: rgba(255, 255, 255, 0.6);
     text-align: center;
     display: flex;
     align-items: center;
@@ -214,8 +300,8 @@ header a {
     top: 100%;
     background-color: #FFF;
     border: 1px solid #d9ddde;
-    padding: 10px;
-    margin-top: -1px;
+    padding: 9px 10px 10px;
+    margin-top: 0;
     opacity: 0;
     visibility: hidden;
     -webkit-transition: all 0.225s ease-in-out;
@@ -244,6 +330,37 @@ header a {
 }
 .image-title p {
     margin: 0;
+}
+.folder-selection {
+    text-align: left;
+    margin-bottom: 2rem;
+    padding-right: 10px;
+}
+.folder-selection span.active {
+    color: #00abd2;
+    font-weight: 600;
+}
+.image-overlay .fa {
+    order: 1;
+    font-size: 10vmin;
+    color: #ccc;
+}
+.folder.selected .image-overlay .fa {
+    color: #00abd2;
+}
+.folder.selected .image-holder,
+.image.selected .image-holder {
+    border-color: #00abd2;
+}
+.image-library .folder,
+.image-library .image {
+    cursor: pointer;
+}
+.image-library .folder .image-info {
+    cursor: default;
+}
+.image-library .folder .image-overlay {
+    opacity: 1;
 }
 @media only screen and (min-width: 488px) {
     .titles,
