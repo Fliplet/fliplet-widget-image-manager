@@ -60,17 +60,6 @@ $('#app')
 
     $form.submit();
   })
-  .on('click', '[data-select-file]', function (event) {
-    event.preventDefault();
-    var id = $(this).parents('.image').data('file-id');
-    currentFiles.forEach(function (file) {
-      if (file.id === id) {
-        Fliplet.Widget.save(file).then(function () {
-          Fliplet.Widget.complete();
-        });
-      }
-    })
-  })
   .on('submit', '[data-upload-file]', function uploadImage(event) {
     var $form = $(this);
     event.preventDefault();
@@ -245,7 +234,29 @@ $('.image-library')
     currentAppId = undefined;
     currentFolderId = undefined;
     openOrganization(id);
-  });
+  })
+  .on('click', '.image', function (event) {
+    // Removes any selected folder
+    $('.image').not(this).each(function(){
+      $(this).removeClass('selected');
+    });
+
+    // Selects clicked folder or deselects clicked folder
+    $(this).toggleClass('selected');
+  })
+  .on('click', '[data-select-file]', function (event) {
+    event.preventDefault();
+    var id = $(this).parents('.image').data('file-id');
+    currentFiles.forEach(function (file) {
+      if (file.id === id) {
+        Fliplet.Widget.save(file).then(function () {
+          Fliplet.Widget.complete();
+        });
+      }
+    })
+  })
+
+;
 
 $('.back-btn').click(function () {
   var $el = $(this);
