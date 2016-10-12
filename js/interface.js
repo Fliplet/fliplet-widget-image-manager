@@ -188,9 +188,9 @@ $('.image-library')
       };
       upTo.push(backItem);
     } else if (parentId !== '') {
-      backItem = _.find(folders, ['id', folderId]);
+      backItem = _.find(folders, ['parentId', parentId]);
       backItem.back = function () {
-        openFolder(backItem.id);
+        openFolder(backItem.parentId);
       };
       upTo.push(backItem);
     }
