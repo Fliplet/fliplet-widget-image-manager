@@ -3,6 +3,7 @@ var templates = {
   file: template('file'),
   folder: template('folder'),
   app: template('app'),
+  organization: template('organization'),
   noFiles: template('nofiles')
 };
 var currentFiles;
@@ -35,6 +36,10 @@ function addFolder(folder) {
 
 function addApp(app) {
   $imagesContainer.append(templates.app(app));
+}
+
+function addOrganization(organization) {
+  $imagesContainer.append(templates.organization(organization));
 }
 
 function noFiles() {
@@ -117,9 +122,12 @@ $('#app')
   });
 
 
-var upTo = ['root'];
-var currentAppId;
-var folders;
+var upTo = [{ back: openRoot}];
+var currentAppId,
+  currentOrganizationId,
+  folders,
+  apps,
+  organizations;
 
 function getApps() {
   return Fliplet.Apps
@@ -137,20 +145,19 @@ function openRoot() {
 
   var organizationId = Fliplet.Env.get('organizationId');
   return Promise.all([
-      Fliplet.Media.Folders.get({ type: 'folders', organizationId: organizationId }),
+      //Fliplet.Media.Folders.get({ type: 'folders', organizationId: organizationId }),
+      Fliplet.Organizations.get(),
       getApps(),
-      Fliplet.Media.Folders.get({ type: 'images' }),
-      Fliplet.Media.Folders.get({ type: 'images', organizationId: organizationId })
+      //Fliplet.Media.Folders.get({ type: 'images' }),
+      //Fliplet.Media.Folders.get({ type: 'images', organizationId: organizationId })
     ])
     .then(function renderRoot(values) {
       // TODO: add no files message if no files
-      folders = values[0].folders;
+      organizations = values[0];
       apps = values[1];
 
-      values[0].folders.forEach(addFolder);
-      values[1].forEach(addApp);
-      values[2].files.forEach(addFile);
-      values[3].files.forEach(addFile);
+      values[0].forEach(addOrganization);
+      values[1].forEach(addApp)
     })
 }
 
@@ -186,16 +193,45 @@ function openApp(appId) {
     });
 }
 
+function openOrganization(organizationId) {
+  Promise.all([
+    Fliplet.Media.Folders.get({ type: 'folders', organizationId: organizationId }),
+    Fliplet.Media.Folders.get({ type: 'images', organizationId: organizationId })
+  ])
+    .then(function renderApp(values) {
+      $imagesContainer.html('');
+
+      // Render folders and files
+      values[0].folders.forEach(addFolder);
+      values[1].files.forEach(addFile);
+    });
+}
+
 $('.image-library')
   .on('dblclick', '[data-folder-id]', function () {
     var $el = $(this);
     var folderId = $el.data('folder-id');
     var parentId = $el.data('parent-id');
+    var backItem;
 
     if (parentId === '' && currentAppId) {
-      upTo.push(_.find(apps, ['id', currentAppId]))
+      backItem = _.find(apps, ['id', currentAppId]);
+      backItem.back = function () {
+        openApp(backItem.id);
+      };
+      upTo.push(backItem);
+    } else if (parentId === '' && currentOrganizationId) {
+      backItem = _.find(organizations, ['id', currentOrganizationId]);
+      backItem.back = function () {
+        openOrganization(backItem.id);
+      };
+      upTo.push(backItem);
     } else if (parentId !== '') {
-      upTo.push(_.find(folders, ['id', folderId]));
+      backItem = _.find(folders, ['id', folderId])
+      backItem.back = function () {
+        openFolder(backItem.id);
+      };
+      upTo.push(backItem);
     }
 
     openFolder(folderId);
@@ -208,7 +244,15 @@ $('.image-library')
     var $el = $(this);
     var id = $el.data('app-id');
     currentAppId = id;
+    currentOrganizationId = undefined;
     openApp(id);
+  })
+  .on('dblclick', '[data-organization-id]', function () {
+    var $el = $(this);
+    var id = $el.data('organization-id');
+    currentOrganizationId = id;
+    currentAppId = undefined;
+    openOrganization(id);
   });
 
 $('.back-btn').click(function () {
@@ -216,15 +260,10 @@ $('.back-btn').click(function () {
   var id = $el.data('file-id');
 
   if (upTo.length === 1) {
-    openRoot();
-  } else if (upTo.length === 2 && currentAppId) {
-    openApp(currentAppId);
-    upTo.pop();
-    currentAppId = undefined;
-  } else {
-    var folderId = upTo.pop().id;
-    openFolder(folderId);
+    upTo[0].back();
   }
+
+  upTo.pop().back();
 });
 
 // init
