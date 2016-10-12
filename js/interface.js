@@ -150,21 +150,11 @@ function openRoot() {
 }
 
 function openFolder(folderId) {
-  // Clean library container
-  $imagesContainer.html('');
-
   Promise.all([
     Fliplet.Media.Folders.get({ type: 'folders', folderId: folderId }),
     Fliplet.Media.Folders.get({ type: 'images', folderId: folderId  })
   ])
-    .then(function renderFolder(values) {
-      // TODO: add no files message if no files
-      folders = values[0].folders;
-
-      // Render folders and files
-      _.sortBy(values[0].folders, ['name']).forEach(addFolder);
-      _.sortBy(values[1].files, ['name']).forEach(addFile);
-    });
+    .then(renderFolderContent);
 }
 
 function openApp(appId) {
@@ -172,13 +162,21 @@ function openApp(appId) {
     Fliplet.Media.Folders.get({ type: 'folders', appId: appId }),
     Fliplet.Media.Folders.get({ type: 'images', appId: appId })
   ])
-    .then(function renderApp(values) {
-      $imagesContainer.html('');
+    .then(renderFolderContent);
+}
 
-      // Render folders and files
-      _.sortBy(values[0].folders, ['name']).forEach(addFolder);
-      _.sortBy(values[1].files, ['name']).forEach(addFile);
-    });
+function renderFolderContent(values) {
+  $imagesContainer.html('');
+
+  if (!values[0].folders.length && !values[1].files.length) {
+    return noFiles();
+  }
+  folders = values[0].folders;
+  currentFiles = values[1].files;
+
+  // Render folders and files
+  _.sortBy(values[0].folders, ['name']).forEach(addFolder);
+  _.sortBy(values[1].files, ['name']).forEach(addFile);
 }
 
 function openOrganization(organizationId) {
