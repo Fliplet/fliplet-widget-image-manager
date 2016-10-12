@@ -190,7 +190,7 @@ function openOrganization(organizationId) {
       $imagesContainer.html('');
 
       // Render folders and files
-      _.sortBy(values[0].folders, ['name']).folders.forEach(addFolder);
+      _.sortBy(values[0].folders, ['name']).forEach(addFolder);
       _.sortBy(values[1].files, ['name']).forEach(addFile);
     });
 }
