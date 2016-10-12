@@ -142,6 +142,7 @@ function openApp(appId) {
 }
 
 function renderFolderContent(values) {
+  $('.folder-selection').html('Select an image below')
   $imagesContainer.html('');
 
   if (!values[0].folders.length && !values[1].files.length) {
@@ -160,13 +161,7 @@ function openOrganization(organizationId) {
     Fliplet.Media.Folders.get({ type: 'folders', organizationId: organizationId }),
     Fliplet.Media.Folders.get({ type: 'images', organizationId: organizationId })
   ])
-    .then(function renderOrganization(values) {
-      $imagesContainer.html('');
-
-      // Render folders and files
-      _.sortBy(values[0].folders, ['name']).forEach(addFolder);
-      _.sortBy(values[1].files, ['name']).forEach(addFile);
-    });
+    .then(renderFolderContent);
 }
 
 $('.image-library')
@@ -246,6 +241,7 @@ $('.image-library')
 
     // Selects clicked folder or deselects clicked folder
     $el.toggleClass('selected');
+    $('.folder-selection').html('You have selected an image')
     selectedFileId = $el.data('file-id');
   });
 
