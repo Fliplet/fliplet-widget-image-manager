@@ -57,9 +57,9 @@ $('#app')
       data: formData
     };
 
-    if (currentAppId) options.appId = currentAppId;
-    if (currentOrganizationId) options.organizationId = currentOrganizationId;
-    if (currentFolderId) options.folderId = currentFolderId;
+    if (upTo[upTo.length - 1].type) {
+      options[upTo[upTo.length - 1].type] = upTo[upTo.length - 1].id;
+    }
 
     Fliplet.Media.Files.upload(options).then(function (files) {
       $('.uploading-control').removeClass('show');
@@ -167,35 +167,19 @@ function openOrganization(organizationId) {
 $('.image-library')
   .on('dblclick', '[data-folder-id]', function () {
     var $el = $(this);
-    var folderId = $el.data('folder-id');
-    var parentId = $el.data('parent-id');
+    var id = $el.data('folder-id');
     var backItem;
 
-    if (parentId === '' && currentAppId) {
-      backItem = _.find(apps, ['id', currentAppId]);
-      backItem.back = function () {
-        openApp(backItem.id);
-      };
-      upTo.push(backItem);
-    } else if (parentId === '' && currentOrganizationId) {
-      backItem = _.find(organizations, ['id', currentOrganizationId]);
-      backItem.back = function () {
-        openOrganization(backItem.id);
-      };
-      upTo.push(backItem);
-    } else if (parentId !== '') {
-      backItem = _.find(folders, ['parentId', parentId]);
-      backItem.back = function () {
-        openFolder(backItem.parentId);
-      };
-      upTo.push(backItem);
-    }
+    // Store to nav stack
+    backItem = _.find(folders, ['id', id]);
+    backItem.back = function () {
+      openFolder(id);
+    };
+    backItem.type = 'folderId';
+    upTo.push(backItem);
 
-    currentFolderId = folderId;
-    currentAppId = undefined;
-    currentOrganizationId = undefined;
-
-    openFolder(folderId);
+    // Open
+    openFolder(id);
 
     $('.up-to').html($('.helper').text());
     $('.helper strong').html($el.find('.image-title').text());
@@ -203,30 +187,40 @@ $('.image-library')
   .on('dblclick', '[data-app-id]', function () {
     var $el = $(this);
     var id = $el.data('app-id');
-    currentAppId = id;
-    currentOrganizationId = undefined;
-    currentFolderId = undefined;
+    var backItem;
+
+    // Store to nav stack
+    backItem = _.find(apps, ['id', id]);
+    backItem.back = function () {
+      openApp(id);
+    };
+    backItem.type = 'appId';
+    upTo.push(backItem);
+
+    // Open
     openApp(id);
 
     // Update paths
-    $('.helper strong').html($el.find('.image-title').text());
-    $('.up-to').html('Root');
-    $('.back-btn').show();
-    $('.breadcrumbs-select').show();
+    updatePaths();
   })
   .on('dblclick', '[data-organization-id]', function () {
     var $el = $(this);
     var id = $el.data('organization-id');
-    currentOrganizationId = id;
-    currentAppId = undefined;
-    currentFolderId = undefined;
+    var backItem;
+
+    // Store to nav stack
+    backItem = _.find(organizations, ['id', id]);
+    backItem.back = function () {
+      openOrganization(id);
+    };
+    backItem.type = 'organizationId';
+    upTo.push(backItem);
+
+    // Open
     openOrganization(id);
 
     // Update paths
-    $('.helper strong').html($el.find('.image-title').text());
-    $('.up-to').html('Root');
-    $('.back-btn').show();
-    $('.breadcrumbs-select').show();
+    updatePaths();
   })
   .on('click', '.image', function () {
     var $el = $(this);
@@ -247,20 +241,34 @@ $('.image-library')
   });
 
 $('.back-btn').click(function () {
-  var $el = $(this);
-  var id = $el.data('file-id');
-
-  $('.helper strong').html($('.up-to').text());
-
   if (upTo.length === 1) {
-    $('.back-btn').hide();
-    return upTo[0].back();
+    return;
   }
 
-  var upToText = upTo[upTo.length - 2].name ? upTo[upTo.length - 2].name : 'Root';
-  $('.up-to').html(upToText);
-  return upTo.pop().back();
+  upTo.pop();
+  upTo[upTo.length-1].back();
+  updatePaths();
 });
+
+function updatePaths() {
+  if (upTo.length === 1) {
+    // Hide them
+    $('.back-btn').hide();
+    $('.breadcrumbs-select').hide();
+
+    return;
+  }
+
+  // Show them
+  $('.breadcrumbs-select').show();
+  $('.back-btn').show();
+
+  // Parent folder
+  $('.up-to').html(upTo[upTo.length - 2].name);
+
+  // Current folder
+  $('.helper strong').html(upTo[upTo.length - 1].name);
+}
 
 // init
 openRoot();
