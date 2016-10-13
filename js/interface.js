@@ -120,6 +120,8 @@ function openRoot() {
       values[0].forEach(addOrganization);
       values[1].forEach(addApp)
     })
+
+  Fliplet.Widget.autosize();
 }
 
 function openFolder(folderId) {
@@ -151,6 +153,8 @@ function renderFolderContent(values) {
   // Render folders and files
   _.sortBy(values[0].folders, ['name']).forEach(addFolder);
   _.sortBy(values[1].files, ['name']).forEach(addFile);
+
+  Fliplet.Widget.autosize();
 }
 
 function openOrganization(organizationId) {
