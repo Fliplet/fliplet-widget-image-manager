@@ -84,10 +84,7 @@ $('#app')
 
 
 var upTo = [{ back: openRoot}];
-var currentAppId,
-  currentOrganizationId,
-  currentFolderId,
-  folders,
+var folders,
   apps,
   organizations, 
   currentFiles,
