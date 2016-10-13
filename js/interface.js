@@ -267,7 +267,6 @@ openRoot();
 
 Fliplet.Widget.onSaveRequest(function () {
   var file = _.find(currentFiles, ['id', selectedFileId]);
-  return
   Fliplet.Widget.save(file).then(function () {
     Fliplet.Widget.complete();
   });
