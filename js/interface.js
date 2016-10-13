@@ -108,7 +108,7 @@ function openRoot() {
   $imagesContainer.html('');
 
   // Update paths
-  $('.helper').hide();
+  $('.breadcrumbs-select').hide();
   $('.back-btn').hide();
 
   var organizationId = Fliplet.Env.get('organizationId');
@@ -198,7 +198,7 @@ $('.image-library')
     openFolder(folderId);
 
     $('.up-to').html($('.helper').text());
-    $('.helper').html($el.find('.image-title').text());
+    $('.helper strong').html($el.find('.image-title').text());
   })
   .on('click', '[data-file-file]', function () {
     var $el = $(this);
@@ -213,7 +213,7 @@ $('.image-library')
     openApp(id);
 
     // Update paths
-    $('.helper').html($el.find('.image-title').text());
+    $('.helper strong').html($el.find('.image-title').text());
     $('.up-to').html('Root');
     $('.back-btn').show();
     $('.breadcrumbs-select').show();
@@ -227,7 +227,7 @@ $('.image-library')
     openOrganization(id);
 
     // Update paths
-    $('.helper').html($el.find('.image-title').text());
+    $('.helper strong').html($el.find('.image-title').text());
     $('.up-to').html('Root');
     $('.back-btn').show();
     $('.breadcrumbs-select').show();
@@ -249,7 +249,7 @@ $('.back-btn').click(function () {
   var $el = $(this);
   var id = $el.data('file-id');
 
-  $('.helper').html($('.up-to').text());
+  $('.helper strong').html($('.up-to').text());
 
   if (upTo.length === 1) {
     $('.back-btn').hide();
@@ -266,6 +266,7 @@ openRoot();
 
 Fliplet.Widget.onSaveRequest(function () {
   var file = _.find(currentFiles, ['id', selectedFileId]);
+  return
   Fliplet.Widget.save(file).then(function () {
     Fliplet.Widget.complete();
   });
