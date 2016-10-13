@@ -142,7 +142,7 @@ function openApp(appId) {
 }
 
 function renderFolderContent(values) {
-  $('.folder-selection').html('Select an image below')
+  $('.folder-selection span').html('Select an image below')
   $imagesContainer.html('');
 
   if (!values[0].folders.length && !values[1].files.length) {
@@ -200,10 +200,6 @@ $('.image-library')
     $('.up-to').html($('.helper').text());
     $('.helper strong').html($el.find('.image-title').text());
   })
-  .on('click', '[data-file-file]', function () {
-    var $el = $(this);
-    var id = $el.data('file-id');
-  })
   .on('dblclick', '[data-app-id]', function () {
     var $el = $(this);
     var id = $el.data('app-id');
@@ -241,7 +237,7 @@ $('.image-library')
 
     // Selects clicked folder or deselects clicked folder
     $el.toggleClass('selected');
-    $('.folder-selection').html('You have selected an image')
+    $('.folder-selection span').html('You have selected an image')
     selectedFileId = $el.data('file-id');
   });
 
