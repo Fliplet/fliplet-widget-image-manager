@@ -228,17 +228,22 @@ $('.image-library')
     $('.back-btn').show();
     $('.breadcrumbs-select').show();
   })
-  .on('click', '.image', function (event) {
+  .on('click', '.image', function () {
     var $el = $(this);
     // Removes any selected folder
     $('.image').not(this).each(function(){
       $(this).removeClass('selected');
     });
 
-    // Selects clicked folder or deselects clicked folder
+    if ($el.hasClass('selected')) {
+      $('.folder-selection span').html('Select an image below');
+      selectedFileId = null;
+    } else {
+      $('.folder-selection span').html('You have selected an image');
+      selectedFileId = $el.data('file-id');
+    }
+
     $el.toggleClass('selected');
-    $('.folder-selection span').html('You have selected an image')
-    selectedFileId = $el.data('file-id');
   });
 
 $('.back-btn').click(function () {
