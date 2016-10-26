@@ -86,7 +86,7 @@ $('#app')
 var upTo = [{ back: openRoot}];
 var folders,
   apps,
-  organizations, 
+  organizations,
   currentFiles,
   selectedFileId;
 
@@ -254,6 +254,7 @@ $('.back-btn').click(function () {
 function updatePaths() {
   if (upTo.length === 1) {
     // Hide them
+    $('.gallery-tool').removeClass('with-tools');
     $('.back-btn').hide();
     $('.breadcrumbs-select').hide();
 
@@ -261,11 +262,16 @@ function updatePaths() {
   }
 
   // Show them
+  $('.gallery-tool').addClass('with-tools');
   $('.breadcrumbs-select').show();
   $('.back-btn').show();
 
   // Parent folder
-  $('.up-to').html(upTo[upTo.length - 2].name);
+  if (typeof upTo[upTo.length - 2].name !== 'undefined') {
+    $('.up-to').html(upTo[upTo.length - 2].name);
+  } else {
+    $('.up-to').html("Root");
+  }
 
   // Current folder
   $('.helper strong').html(upTo[upTo.length - 1].name);
@@ -280,4 +286,3 @@ Fliplet.Widget.onSaveRequest(function () {
     Fliplet.Widget.complete();
   });
 });
-

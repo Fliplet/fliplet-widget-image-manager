@@ -219,10 +219,12 @@ header a {
 
 .gallery-tool {
     font-size: 1em;
+    line-height: 44px;
+}
+
+.gallery-tool.with-tools {
     border-bottom: 1px solid #E3E9EB;
     margin-bottom: 1rem;
-    padding-bottom: 1em;
-    line-height: 44px;
 }
 
 .gallery-tool .back-btn {
