@@ -1,4 +1,7 @@
 var $imagesContainer = $('.image-library');
+var $imageForm = $('#image-drop-zone');
+var $imageInput = $imageForm.find('input');
+
 var templates = {};
 
 [
@@ -35,55 +38,65 @@ function template(name) {
   return Handlebars.compile($('#template-' + name).html());
 }
 
+function uploadImage(image) {
+  var formData = new FormData();
+
+  $('#choose-image').removeClass('show');
+  $('.uploading-control').addClass('show');
+
+  formData.append('name', image.name);
+  formData.append('file', image);
+
+  var options = {
+    name: image.name,
+    data: formData
+  };
+
+  if (upTo[upTo.length - 1].type) {
+    options[upTo[upTo.length - 1].type] = upTo[upTo.length - 1].id;
+  }
+
+  Fliplet.Media.Files.upload(options).then(function (files) {
+    $('.uploading-control').removeClass('show');
+    $('.uploaded-control').addClass('show');
+    setTimeout(function(){
+      $('.uploaded-control').removeClass('show');
+      $('#choose-image').addClass('show');
+    }, 1000);
+
+    $imageInput.val('');
+    files.forEach(function (file) {
+      addFile(file);
+      Fliplet.Widget.save(file).then(function () {
+        Fliplet.Widget.complete();
+      });
+    });
+  });
+}
+
 // events
 $('#app')
   .on('change', '#image_file', function() {
-    var $form = $('#image-drop-zone');
-
-    $('#choose-image').removeClass('show');
-    $('.uploading-control').addClass('show');
-
-    $form.submit();
-  })
-  .on('submit', '[data-upload-file]', function uploadImage(event) {
-    var $form = $(this);
-    event.preventDefault();
-
-    var $input = $form.find('input');
-    var file = $input[0].files[0];
-    var formData = new FormData();
-
-    formData.append('name', file.name);
-    formData.append('file', file);
-
-    var options = {
-      name: file.name,
-      data: formData
-    };
-
-    if (upTo[upTo.length - 1].type) {
-      options[upTo[upTo.length - 1].type] = upTo[upTo.length - 1].id;
-    }
-
-    Fliplet.Media.Files.upload(options).then(function (files) {
-      $('.uploading-control').removeClass('show');
-      $('.uploaded-control').addClass('show');
-      setTimeout(function(){
-        $('.uploaded-control').removeClass('show');
-        $('#choose-image').addClass('show');
-      }, 1000);
-
-      $input.val('');
-      files.forEach(function (file) {
-        addFile(file);
-        Fliplet.Widget.save(file).then(function () {
-          Fliplet.Widget.complete();
-        });
-      });
-    })
+    uploadImage($imageInput[0].files[0]);
   })
   .on('click', '#help_tip', function() {
     alert("During beta, please use live chat and let us know what you need help with.");
+  });
+
+$imageForm
+  .on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  })
+  .on('dragover dragenter', function() {
+    $imageForm.addClass('is-dragover');
+  })
+  .on('dragleave dragend drop', function() {
+    $imageForm.removeClass('is-dragover');
+  })
+  .on('drop', function(e) {
+    droppedFiles = e.originalEvent.dataTransfer.files;
+    uploadImage(droppedFiles[0]);
   });
 
 
