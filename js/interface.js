@@ -56,22 +56,26 @@ function uploadImage(image) {
     options[upTo[upTo.length - 1].type] = upTo[upTo.length - 1].id;
   }
 
-  Fliplet.Media.Files.upload(options).then(function (files) {
-    $('.uploading-control').removeClass('show');
-    $('.uploaded-control').addClass('show');
-    setTimeout(function(){
-      $('.uploaded-control').removeClass('show');
-      $('#choose-image').addClass('show');
-    }, 1000);
+  return Fliplet.Media.Files.upload(options)
+    .then(function (files) {
+      var uploadedFile = files[0];
 
-    $imageInput.val('');
-    files.forEach(function (file) {
-      addFile(file);
-      Fliplet.Widget.save(file).then(function () {
-        Fliplet.Widget.complete();
-      });
+      $('.uploading-control').removeClass('show');
+      $('.uploaded-control').addClass('show');
+
+      setTimeout(function(){
+        $('.uploaded-control').removeClass('show');
+        $('#choose-image').addClass('show');
+      }, 1000);
+
+      $imageInput.val('');
+
+      addFile(uploadedFile);
+      return Fliplet.Widget.save(uploadedFile);
+    })
+    .then(function () {
+      return Fliplet.Widget.complete();
     });
-  });
 }
 
 // events
@@ -127,18 +131,16 @@ function openRoot() {
 
   var organizationId = Fliplet.Env.get('organizationId');
   return Promise.all([
-      Fliplet.Organizations.get(),
-      getApps()
-    ])
-    .then(function renderRoot(values) {
-      organizations = values[0];
-      apps = values[1];
+    Fliplet.Organizations.get(),
+    getApps()
+  ]).then(function renderRoot(values) {
+    organizations = values[0];
+    apps = values[1];
 
-      values[0].forEach(addOrganization);
-      values[1].forEach(addApp)
-    })
-
-  Fliplet.Widget.autosize();
+    values[0].forEach(addOrganization);
+    values[1].forEach(addApp)
+    Fliplet.Widget.autosize();
+  });
 }
 
 function openFolder(folderId) {
