@@ -75,6 +75,10 @@ header a {
     font-weight: normal;
 }
 
+#image-drop-zone.is-dragover {
+    background-color: #fffea2;
+}
+
 #choose-image,
 .uploaded-control,
 .uploading-control {

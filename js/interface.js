@@ -1,11 +1,18 @@
 var $imagesContainer = $('.image-library');
-var templates = {
-  file: template('file'),
-  folder: template('folder'),
-  app: template('app'),
-  organization: template('organization'),
-  noFiles: template('nofiles')
-};
+var $imageForm = $('#image-drop-zone');
+var $imageInput = $imageForm.find('input');
+
+var templates = {};
+
+[
+  'app',
+  'file',
+  'folder',
+  'organization',
+  'noFiles'
+].forEach(function (tpl) {
+  templates[tpl] = Fliplet.Widget.Templates['templates.' + tpl];
+});
 
 function addFile(file) {
   $imagesContainer.append(templates.file(file));
@@ -31,55 +38,69 @@ function template(name) {
   return Handlebars.compile($('#template-' + name).html());
 }
 
-// events
-$('#app')
-  .on('change', '#image_file', function() {
-    var $form = $('#image-drop-zone');
+function uploadImage(image) {
+  var formData = new FormData();
 
-    $('#choose-image').removeClass('show');
-    $('.uploading-control').addClass('show');
+  $('#choose-image').removeClass('show');
+  $('.uploading-control').addClass('show');
 
-    $form.submit();
-  })
-  .on('submit', '[data-upload-file]', function uploadImage(event) {
-    var $form = $(this);
-    event.preventDefault();
+  formData.append('name', image.name);
+  formData.append('file', image);
 
-    var $input = $form.find('input');
-    var file = $input[0].files[0];
-    var formData = new FormData();
+  var options = {
+    name: image.name,
+    data: formData
+  };
 
-    formData.append('name', file.name);
-    formData.append('file', file);
+  if (upTo[upTo.length - 1].type) {
+    options[upTo[upTo.length - 1].type] = upTo[upTo.length - 1].id;
+  }
 
-    var options = {
-      name: file.name,
-      data: formData
-    };
+  return Fliplet.Media.Files.upload(options)
+    .then(function (files) {
+      var uploadedFile = files[0];
 
-    if (upTo[upTo.length - 1].type) {
-      options[upTo[upTo.length - 1].type] = upTo[upTo.length - 1].id;
-    }
-
-    Fliplet.Media.Files.upload(options).then(function (files) {
       $('.uploading-control').removeClass('show');
       $('.uploaded-control').addClass('show');
+
       setTimeout(function(){
         $('.uploaded-control').removeClass('show');
         $('#choose-image').addClass('show');
       }, 1000);
 
-      $input.val('');
-      files.forEach(function (file) {
-        addFile(file);
-        Fliplet.Widget.save(file).then(function () {
-          Fliplet.Widget.complete();
-        });
-      });
+      $imageInput.val('');
+
+      addFile(uploadedFile);
+      return Fliplet.Widget.save(uploadedFile);
     })
+    .then(function () {
+      return Fliplet.Widget.complete();
+    });
+}
+
+// events
+$('#app')
+  .on('change', '#image_file', function() {
+    uploadImage($imageInput[0].files[0]);
   })
   .on('click', '#help_tip', function() {
     alert("During beta, please use live chat and let us know what you need help with.");
+  });
+
+$imageForm
+  .on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  })
+  .on('dragover dragenter', function() {
+    $imageForm.addClass('is-dragover');
+  })
+  .on('dragleave dragend drop', function() {
+    $imageForm.removeClass('is-dragover');
+  })
+  .on('drop', function(e) {
+    droppedFiles = e.originalEvent.dataTransfer.files;
+    uploadImage(droppedFiles[0]);
   });
 
 
@@ -110,18 +131,16 @@ function openRoot() {
 
   var organizationId = Fliplet.Env.get('organizationId');
   return Promise.all([
-      Fliplet.Organizations.get(),
-      getApps()
-    ])
-    .then(function renderRoot(values) {
-      organizations = values[0];
-      apps = values[1];
+    Fliplet.Organizations.get(),
+    getApps()
+  ]).then(function renderRoot(values) {
+    organizations = values[0];
+    apps = values[1];
 
-      values[0].forEach(addOrganization);
-      values[1].forEach(addApp)
-    })
-
-  Fliplet.Widget.autosize();
+    values[0].forEach(addOrganization);
+    values[1].forEach(addApp)
+    Fliplet.Widget.autosize();
+  });
 }
 
 function openFolder(folderId) {

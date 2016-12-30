@@ -7,12 +7,13 @@
   "provider_only": true,
   "interface": {
     "dependencies": [
-      "fliplet-media",
+      "handlebars",
+      "lodash",
       "fliplet-studio-ui",
-      "lodash"
+      "fliplet-media"
     ],
     "assets": [
-      "vendor/handlebars.js",
+      "js/interface.templates.js",
       "js/interface.js",
       "css/interface.css"
     ]
