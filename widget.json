@@ -13,6 +13,7 @@
     ],
     "assets": [
       "vendor/handlebars.js",
+      "js/interface.templates.js",
       "js/interface.js",
       "css/interface.css"
     ]

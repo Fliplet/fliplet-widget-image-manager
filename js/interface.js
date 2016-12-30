@@ -1,11 +1,15 @@
 var $imagesContainer = $('.image-library');
-var templates = {
-  file: template('file'),
-  folder: template('folder'),
-  app: template('app'),
-  organization: template('organization'),
-  noFiles: template('nofiles')
-};
+var templates = {};
+
+[
+  'app',
+  'file',
+  'folder',
+  'organization',
+  'noFiles'
+].forEach(function (tpl) {
+  templates[tpl] = Fliplet.Widget.Templates['templates.' + tpl];
+});
 
 function addFile(file) {
   $imagesContainer.append(templates.file(file));
