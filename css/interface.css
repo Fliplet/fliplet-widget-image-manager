@@ -76,7 +76,8 @@ header a {
 }
 
 #image-drop-zone.is-dragover {
-    background-color: #fffea2;
+    border: 1px solid #0087a6;
+    background-color: rgba(255, 193, 7, 0.18);
 }
 
 #choose-image,
