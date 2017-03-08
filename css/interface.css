@@ -45,7 +45,9 @@ a {
     color: #00abd2;
 }
 
-#app {}
+#app {
+    overflow: hidden;
+}
 
 header {
     display: flex;
@@ -276,6 +278,8 @@ header a {
     display: flex;
     justify-content: flex-start;
     flex-flow: wrap;
+    margin-left: -3px;
+    margin-right: -3px;
 }
 
 .image-library .nofiles-msg {
@@ -288,9 +292,10 @@ header a {
 }
 
 .image-library .col-xs-4 {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 3px;
+    padding-right: 3px;
     margin-bottom: 10px;
+    float: none;
 }
 
 .image-holder {
@@ -391,8 +396,10 @@ header a {
 }
 
 .image-title {
-    padding: 9px 11px;
+    padding: 2px 0 6px;
     word-break: break-word;
+    font-size: 11px;
+    font-weight: normal;
 }
 
 .image-title p {
