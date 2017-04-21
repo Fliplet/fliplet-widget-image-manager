@@ -9,7 +9,7 @@ var templates = {};
   'file',
   'folder',
   'organization',
-  'noFiles'
+  'nofiles'
 ].forEach(function (tpl) {
   templates[tpl] = Fliplet.Widget.Templates['templates.' + tpl];
 });
@@ -31,7 +31,7 @@ function addOrganization(organization) {
 }
 
 function noFiles() {
-  $imagesContainer.html(templates.noFiles());
+  $imagesContainer.html(templates.nofiles());
 }
 
 function template(name) {
