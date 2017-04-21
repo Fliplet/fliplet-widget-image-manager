@@ -181,7 +181,12 @@ function openOrganization(organizationId) {
     Fliplet.Media.Folders.get({ type: 'folders', organizationId: organizationId }),
     Fliplet.Media.Folders.get({ type: 'images', organizationId: organizationId })
   ])
-    .then(renderFolderContent);
+    .then(function (values) {
+      values[1].files = values[1].files.filter(function removeNonRootFiles(file) {
+        return !(file.appId || file.mediaFolderId);
+      });
+      renderFolderContent(values);
+    });
 }
 
 $('.image-library')
