@@ -1,394 +1,312 @@
-/*BUTTONS*/
-.btn {
-    border-radius: 6px;
-    line-height: 44px;
-    padding: 0 15px;
-    border: none;
-}
-
-.btn-default {
-    color: #333;
-    background-color: #e4e9eb;
-    border-bottom: 2px solid #cfd3d5;
-}
-
-.btn-default:active,
-.btn-default:active:focus,
-.btn-default:active:hover,
-.btn-default:focus,
-.btn-default:hover {
-    color: #333;
-    background-color: #cfd3d5;
-    border-color: #cfd3d5;
-    outline: none;
-}
-
-.btn-primary {
-    color: #FFF;
-    background-color: #00abd2;
-    border-bottom: 2px solid #0087a6;
-}
-
-.btn-primary:active,
-.btn-primary:active:focus,
-.btn-primary:active:hover,
-.btn-primary:focus,
-.btn-primary:hover {
-    color: #FFF;
-    background-color: #0087a6;
-    border-color: #0087a6;
-    outline: none;
-}
-
-.btn-link,
-a {
-    color: #00abd2;
-}
-
-#app {}
-
-header {
-    display: flex;
-    font-size: 0.8em;
-    border-bottom: 1px solid #E3E9EB;
-    margin-bottom: 3rem;
-    padding-bottom: 1.5em;
-}
-
-header p {
-    flex: 1;
-    margin: 0 1.4rem 0 0;
-}
-
-header a {
-    text-decoration: none;
-}
-
 #image-drop-zone {
-    position: relative;
-    width: 100%;
-    border: 1px dashed #0087a6;
-    background-color: rgba(217, 221, 222, 0.5);
-    padding: 20px;
-    text-align: center;
-    color: #14505e;
-    font-weight: normal;
+  position: relative;
+  width: 100%;
+  border: 1px dashed #0087a6;
+  background-color: rgba(217, 221, 222, 0.5);
+  padding: 20px;
+  text-align: center;
+  color: #14505e;
+  font-weight: normal;
 }
 
 #image-drop-zone.is-dragover {
-    border: 1px solid #0087a6;
-    background-color: rgba(255, 193, 7, 0.18);
+  border: 1px solid #0087a6;
+  background-color: rgba(255, 193, 7, 0.18);
 }
 
 #choose-image,
 .uploaded-control,
 .uploading-control {
-    display: none;
+  display: none;
 }
 
 #choose-image.show {
-    display: inline-block !important;
+  display: inline-block !important;
 }
 
 .uploaded-control p,
 .uploading-control p {
-    line-height: 44px;
-    margin-bottom: 2px;
+  line-height: 44px;
+  margin-bottom: 2px;
 }
 
 .uploading-control p {
-    color: #999999;
+  color: #999999;
 }
 
 #image-drop-zone input {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
 #image-drop-zone p {
-    font-size: 1em;
-    display: inline-block;
-    margin-right: 10px;
-}
-
-.form-control {
-    border-radius: 6px;
-    border: 1px solid #e4e9eb;
-    color: #333;
-    height: 44px;
-    line-height: 44px;
-    padding: 0 15px;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-
-.form-control:focus {
-    border-color: #00abd2;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(0, 171, 210, .6);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(0, 171, 210, .6);
+  font-size: 1em;
+  display: inline-block;
+  margin-right: 10px;
 }
 
 .search-media {
-    position: relative;
-    margin-top: 30px;
+  position: relative;
+  margin-top: 30px;
 }
 
 .search-media input {
-    text-indent: 30px;
+  text-indent: 30px;
 }
 
 .search-media .fa-search {
-    position: absolute;
-    top: 10px;
-    left: 15px;
-    font-size: 22px;
-    color: #00abd2;
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  font-size: 22px;
+  color: #00abd2;
 }
 
 .titles {
-    font-size: 0.8em;
-    border-bottom: 1px solid #E3E9EB;
-    margin-bottom: 1rem;
-    padding-bottom: 1.5em;
+  font-size: 0.8em;
+  border-bottom: 1px solid #E3E9EB;
+  margin-bottom: 1rem;
+  padding-bottom: 1.5em;
 }
 
 .titles p {
-    font-weight: bold;
-    margin: 0;
+  font-weight: bold;
+  margin: 0;
 }
 
-.titles p + p {
-    font-weight: normal;
-    font-size: 0.8em;
-    margin: 0.8em 0 0;
+.titles p+p {
+  font-weight: normal;
+  font-size: 0.8em;
+  margin: 0.8em 0 0;
 }
 
 .gallery-tool {
-    font-size: 1em;
-    line-height: 44px;
+  font-size: 1em;
+  line-height: 44px;
 }
 
 .gallery-tool.with-tools {
-    border-bottom: 1px solid #E3E9EB;
-    margin-bottom: 1rem;
+  border-bottom: 1px solid #E3E9EB;
+  margin-bottom: 1rem;
 }
 
 .gallery-tool .back-btn {
-    width: 50%;
-    padding: 0 16px 0 10px;
-    position: relative;
-    cursor: pointer;
-    text-align: right;
-    float: right;
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  width: 50%;
+  padding: 0 16px 0 10px;
+  position: relative;
+  cursor: pointer;
+  text-align: right;
+  float: right;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .gallery-tool .back-btn:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .gallery-tool .back-btn:before {
-    content: "\f148";
-    font: normal normal normal 16px FontAwesome;
-    position: absolute;
-    right: 0;
-    width: 10px;
-    height: 44px;
-    line-height: 44px;
+  content: "\f148";
+  font: normal normal normal 16px FontAwesome;
+  position: absolute;
+  right: 0;
+  width: 10px;
+  height: 44px;
+  line-height: 44px;
 }
 
 .breadcrumbs-select {
-    width: 50%;
-    display: inline-block;
+  width: 50%;
+  display: inline-block;
 }
 
-.breadcrumbs-select > div.helper {
-    line-height: 44px;
-    padding-right: 10px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.breadcrumbs-select>div.helper {
+  line-height: 44px;
+  padding-right: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .image-library {
-    display: flex;
-    justify-content: flex-start;
-    flex-flow: wrap;
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: wrap;
 }
 
 .image-library .nofiles-msg {
-    text-align: center;
-    width: 100%;
+  text-align: center;
+  width: 100%;
 }
 
 .image-library .nofiles-msg label {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .image-library .col-xs-4 {
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 10px;
 }
 
 .image-holder {
-    position: relative;
-    width: 100%;
-    padding-top: 59%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: contain;
-    border: 1px solid #d9ddde;
-    background-color: #FFFFFF;
+  position: relative;
+  width: 100%;
+  padding-top: 59%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  border: 1px solid #d9ddde;
+  background-color: #FFFFFF;
 }
 
 .image-overlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-flow: row wrap;
-    overflow: hidden;
-    opacity: 0;
-    cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: row wrap;
+  overflow: hidden;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .image-overlay::after,
 .image-overlay::before {
-    content: '';
-    width: 100%;
-    order: 1;
+  content: '';
+  width: 100%;
+  order: 1;
 }
 
 .image-holder:hover .image-overlay {
-    opacity: 1;
+  opacity: 1;
 }
 
 .image-overlay .btn {
-    opacity: 0;
-    line-height: 28px;
-    font-size: 0.8em;
-    border-radius: 4px;
+  opacity: 0;
+  line-height: 28px;
+  font-size: 0.8em;
+  border-radius: 4px;
 }
 
 .image-overlay .btn:nth-child(1) {
-    order: 1;
+  order: 1;
 }
 
 .image-overlay .btn:nth-child(2) {
-    order: 2;
+  order: 2;
 }
 
 .image-overlay .line-break {
-    width: 100%;
+  width: 100%;
 }
 
 .image-holder:hover .image-overlay .btn {
-    opacity: 1;
+  opacity: 1;
 }
 
 .image-info {
-    position: absolute;
-    left: -1px;
-    right: -1px;
-    top: 100%;
-    background-color: #FFF;
-    border: 1px solid #d9ddde;
-    padding: 9px 10px 10px;
-    margin-top: 0;
-    opacity: 0;
-    visibility: hidden;
-    -webkit-transition: all 0.225s ease-in-out;
-    transition: all 0.25s ease-in-out;
-    z-index: 10;
-    word-break: break-word;
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: 100%;
+  background-color: #FFF;
+  border: 1px solid #d9ddde;
+  padding: 9px 10px 10px;
+  margin-top: 0;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.225s ease-in-out;
+  transition: all 0.25s ease-in-out;
+  z-index: 10;
+  word-break: break-word;
 }
 
 .image-info,
 .image-title {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .image-info p {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
-.image-info p + p {
-    font-size: 10px;
-    margin: 0;
+.image-info p+p {
+  font-size: 10px;
+  margin: 0;
 }
 
-.image-holder:hover > .image-info {
-    opacity: 1;
-    visibility: visible;
+.image-holder:hover>.image-info {
+  opacity: 1;
+  visibility: visible;
 }
 
 .image-title {
-    padding: 9px 11px;
-    word-break: break-word;
+  padding: 9px 11px;
+  word-break: break-word;
 }
 
 .image-title p {
-    margin: 0;
+  margin: 0;
 }
 
 .folder-selection {
-    text-align: left;
-    margin-bottom: 2rem;
-    padding-right: 10px;
+  text-align: left;
+  margin-bottom: 2rem;
+  padding-right: 10px;
 }
 
 .folder-selection span.active {
-    color: #00abd2;
-    font-weight: 600;
+  color: #00abd2;
+  font-weight: 600;
 }
 
 .image-overlay .fa {
-    order: 1;
-    font-size: 10vmin;
-    color: #ccc;
+  order: 1;
+  font-size: 10vmin;
+  color: #ccc;
 }
 
 .folder.selected .image-overlay .fa {
-    color: #00abd2;
+  color: #00abd2;
 }
 
 .folder.selected .image-holder,
 .image.selected .image-holder {
-    border-color: #00abd2;
+  border-color: #00abd2;
 }
 
 .image-library .folder,
 .image-library .image {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .image-library .folder .image-info {
-    cursor: default;
+  cursor: default;
 }
 
 .image-library .folder .image-overlay {
-    opacity: 1;
+  opacity: 1;
 }
-@media only screen and (min-width: 488px) {
-    .titles,
-    header {
-        font-size: 1.0em;
-    }
 
-    .image-drop-zone p {
-        font-size: 1.12em;
-    }
+@media only screen and (min-width: 488px) {
+  .titles,
+  header {
+    font-size: 1.0em;
+  }
+
+  .image-drop-zone p {
+    font-size: 1.12em;
+  }
 }
