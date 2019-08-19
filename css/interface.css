@@ -1,3 +1,7 @@
+#app {
+  padding: 15px;
+}
+
 #image-drop-zone {
   position: relative;
   width: 100%;
