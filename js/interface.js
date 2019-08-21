@@ -138,7 +138,7 @@ function openRoot() {
     apps = values[1];
 
     values[0].forEach(addOrganization);
-    values[1].forEach(addApp)
+    values[1].forEach(addApp);
     Fliplet.Widget.autosize();
   });
 }
@@ -160,7 +160,7 @@ function openApp(appId) {
 }
 
 function renderFolderContent(values) {
-  $('.folder-selection span').html('Select an image below')
+  $('.folder-selection span').html('Select an image below');
   $imagesContainer.html('');
 
   if (!values[0].folders.length && !values[1].files.length) {
@@ -182,6 +182,9 @@ function openOrganization(organizationId) {
     Fliplet.Media.Folders.get({ type: 'images', organizationId: organizationId })
   ])
     .then(function (values) {
+      values[0].folders = values[0].folders.filter(function removeNonRootFolders(folder) {
+        return !folder.appId;
+      });
       values[1].files = values[1].files.filter(function removeNonRootFiles(file) {
         return !(file.appId || file.mediaFolderId);
       });
