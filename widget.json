@@ -8,7 +8,6 @@
   "interface": {
     "dependencies": [
       "handlebars",
-      "lodash",
       "fliplet-studio-ui",
       "fliplet-utils",
       "fliplet-media"
