@@ -170,8 +170,8 @@ function renderFolderContent(values) {
   currentFiles = values[1].files;
 
   // Render folders and files
-  _.sortBy(values[0].folders, ['name']).forEach(addFolder);
-  _.sortBy(values[1].files, ['name']).forEach(addFile);
+  Fliplet.Utils.sortBy(values[0].folders, 'name').forEach(addFolder);
+  Fliplet.Utils.sortBy(values[1].files, 'name').forEach(addFile);
 
   Fliplet.Widget.autosize();
 }
@@ -199,7 +199,7 @@ $('.image-library')
     var backItem;
 
     // Store to nav stack
-    backItem = _.find(folders, ['id', id]);
+    backItem = Fliplet.Utils.find(folders, ['id', id]);
     backItem.back = function () {
       openFolder(id);
     };
@@ -218,7 +218,7 @@ $('.image-library')
     var backItem;
 
     // Store to nav stack
-    backItem = _.find(apps, ['id', id]);
+    backItem = Fliplet.Utils.find(apps, ['id', id]);
     backItem.back = function () {
       openApp(id);
     };
@@ -237,7 +237,7 @@ $('.image-library')
     var backItem;
 
     // Store to nav stack
-    backItem = _.find(organizations, ['id', id]);
+    backItem = Fliplet.Utils.find(organizations, ['id', id]);
     backItem.back = function () {
       openOrganization(id);
     };
@@ -308,7 +308,7 @@ function updatePaths() {
 openRoot();
 
 Fliplet.Widget.onSaveRequest(function () {
-  var file = _.find(currentFiles, ['id', selectedFileId]);
+  var file = Fliplet.Utils.find(currentFiles, ['id', selectedFileId]);
   Fliplet.Widget.save(file).then(function () {
     Fliplet.Widget.complete();
   });
